@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Portfolio</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #fdfdfd;
+            color: #333;
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 20px;
+            background: #e3f2fd;
+        }
+
+        header h1 {
+            margin-bottom: 10px;
+        }
+
+        header button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        header button:hover {
+            background-color: #1976d2;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .entry {
+            display: none;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .entry img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        .entry button {
+            align-self: flex-end;
+            padding: 8px 16px;
+            background-color: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .entry button:hover {
+            background-color: #1976d2;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My English Portfolio</h1>
+        <p>Explore my class entries, from grammar exercises to field trips!</p>
+        <button id="startBtn">Start Portfolio</button>
+    </header>
+
+    <main id="portfolio"></main>
+
+    <script>
+        const entries = [
+            {
+                title: "Grammar Practice: Past Tense",
+                date: "2025-08-01",
+                type: "Grammar",
+                content: "Today we practiced past tense verbs. Here are some examples and exercises we did in class.",
+                image: "https://via.placeholder.com/800x400?text=Grammar+Practice"
+            },
+            {
+                title: "Field Trip to the Museum",
+                date: "2025-08-05",
+                type: "Field Trip",
+                content: "Our class visited the history museum and wrote reflections about what we learned.",
+                image: "https://via.placeholder.com/800x400?text=Field+Trip"
+            },
+            {
+                title: "Creative Writing: Short Story",
+                date: "2025-08-10",
+                type: "Writing",
+                content: "We wrote short stories based on prompts. Here's one of my favorite stories.",
+                image: "https://via.placeholder.com/800x400?text=Short+Story"
+            }
+        ];
+
+        let currentIndex = 0;
+
+        const startBtn = document.getElementById("startBtn");
+        const portfolio = document.getElementById("portfolio");
+
+        function showEntry(index) {
+            portfolio.innerHTML = ""; // clear previous
+            const entry = entries[index];
+
+            const entryDiv = document.createElement("div");
+            entryDiv.className = "entry";
+
+            const title = document.createElement("h2");
+            title.textContent = entry.title;
+
+            const meta = document.createElement("p");
+            meta.textContent = `${entry.type} | ${entry.date}`;
+
+            const content = document.createElement("p");
+            content.textContent = entry.content;
+
+            const img = document.createElement("img");
+            img.src = entry.image;
+            img.alt = entry.title;
+
+            const nextBtn = document.createElement("button");
+            nextBtn.textContent = index < entries.length - 1 ? "Next" : "End";
+            nextBtn.addEventListener("click", () => {
+                if (currentIndex < entries.length - 1) {
+                    currentIndex++;
+                    showEntry(currentIndex);
+                } else {
+                    portfolio.innerHTML = "<h2>You've reached the end of the portfolio!</h2>";
+                }
+            });
+
+            entryDiv.append(title, meta, content, img, nextBtn);
+            portfolio.appendChild(entryDiv);
+            entryDiv.style.display = "flex";
+        }
+
+        startBtn.addEventListener("click", () => {
+            startBtn.style.display = "none";
+            showEntry(currentIndex);
+        });
+    </script>
+</body>
+</html>
